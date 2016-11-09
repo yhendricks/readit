@@ -14,7 +14,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from books.views import list_books
+from books.views import AuthorDetail, AuthorList, list_books, BookDetail
 import settings
 
 urlpatterns = [
@@ -22,11 +22,15 @@ urlpatterns = [
 
     # empty URL
     url(r'^$', list_books, name='books'),
+
+    url(r'^authors/$', AuthorList.as_view(), name='authors'),
+    url(r'^book/(?P<pk>[-\w]+)/$', BookDetail.as_view(), name='book-detail'),
+    url(r'^authors/(?P<pk>[-\w]+)/$', AuthorDetail.as_view(), name='author-detail'),
 ]
 
-if settings.DEBUG:
-    import debug_toolbar
-
-    urlpatterns += [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ]
+# if settings.DEBUG:
+#     import debug_toolbar
+#
+#     urlpatterns += [
+#         url(r'^__debug__/', include(debug_toolbar.urls)),
+#     ]
