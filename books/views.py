@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Book, Author
 from django.views.generic import DetailView, View
@@ -62,6 +62,17 @@ def review_book(request, pk):
     Review an individual book
     """
     book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        # Process our form
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            book.is_favourite = form.cleaned_data['is_favourite']
+            book.review = form.cleaned_data['review']
+            book.save()
+
+            return redirect('review-books')
+
     form = ReviewForm
 
     context = {
