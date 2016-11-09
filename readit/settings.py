@@ -105,11 +105,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-#INTERNAL_IPS = ('10.0.0.72', '127.0.0.1',)
-
-# def custom_show_toolbar(request):
-#     return True # Always show toolbar, for example purposes only.
-#
-# DEBUG_TOOLBAR_CONFIG = {
-#     'SHOW_TOOLBAR_CALLBACK': custom_show_toolbar,
-# }
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'readit', 'static'),
+)
